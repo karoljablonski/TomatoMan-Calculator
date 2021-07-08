@@ -4,6 +4,8 @@
 //liczba pomidorow - mam otrzymac liczbe ludzi
 //liczba ludzi - mam otrzymac ilosc pomidorow
 // glownie chodzi mi o to ze wpisuje liczbe pomidorow a wyskakuje liczba osob jo tam, w dwie strony
+
+//pomysl na dodanie przelicznika - a raczej dac mozliwosc uzytkownikowi ustawienia samemu factora, np po kliknieciu w okienko factora alert z info ze zmieniasz ustawienia programu czy co :D
 let factor = 2.5;
 
 const tomato = document.querySelector(".tomato");

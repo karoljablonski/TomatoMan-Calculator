@@ -70,7 +70,7 @@ button {
 }
 
 button.button_reset {
-    border: none;
+    /* border: none; */
     background-color: transparent;
     letter-spacing: 2px;
     cursor: pointer;
