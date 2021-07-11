@@ -8,6 +8,8 @@
 // 1.0.2 pomysl na dodanie przelicznika - a raczej dac mozliwosc uzytkownikowi ustawienia samemu factora, np po kliknieciu w okienko factora alert z info ze zmieniasz ustawienia programu czy co :D
 
 // 1.0.2fix zrobic, zeby wyswietlanie wyniku nie powodowalo przeskakiwania linijki.
+
+//11.07. 2:02 - stanelo na tym, ze w css dorzucam barwy do apki, html jest gotowy, probuje jeszcze rozkminic, zeby wartosc zmiennej factor wrzucic i wyswietlic w inpucie po wcisnieciu resetu, moze byc tez guzik resetu w ustawieniach. poza tym bangla
 let factor = 2.5;
 
 const tomato = document.querySelector(".tomato");
@@ -70,12 +72,14 @@ button_human.addEventListener("click", function(){
 //zmienne potrzebne do popup'a
 const div = document.querySelector("div.display_none");
 const factorChanger = document.querySelector("p.factorChanger");
+const factorReset = document.querySelector("p.factorReset");
 const quit = document.querySelector("p.quit");
 // factorChanger_span.textContent = `${factor}`;
 
 document.querySelector("button.button_settings").addEventListener("click", function(){
 
     factorChanger.classList.remove("display_none");
+    factorReset.classList.remove("display_none");
     quit.classList.remove("display_none");
     div.classList.remove("display_none");
     div.classList.add("popup");
@@ -83,15 +87,22 @@ document.querySelector("button.button_settings").addEventListener("click", funct
     document.querySelector("div.wrapper").style.filter = "blur(3px)";
 
     //przycisk zapisujacy i wylaczajacy popup'a
-    document.querySelector("p.quit").addEventListener("click", function(){
+    quit.addEventListener("click", function(){
         document.querySelector("div.wrapper").style.filter = "blur(0)";
         div.classList.remove("popup");
         div.classList.add("display_none");
+        factorChanger.classList.add("display_none");
         factorChanger.classList.add("display_none");
         quit.classList.add("display_none");
         const newFactor = document.querySelector("input.factorChanger").value;
         factor = parseFloat(newFactor, 1);
     });
+    factorReset.addEventListener("click", function(){
+            //WAZNA RZECZ: DO INPUTA MOZESZ WPISAC STRING, A NIE LICZBE, DLATEGO KONWERTUJ ZAWSZE NA STRINGA TO CO CHCESZ MIEC W INPUCIE, KONIEC PRZEKAZU
+        factor = 2.5;
+        factorString = factor.toString();
+        document.querySelector("input.factorChanger").value = factorString;
+    })
 });
 
 
@@ -107,7 +118,5 @@ document.querySelector(".reset").addEventListener("click", ()=>{
     human_p.style.color = "transparent";
     tomato_answer.textContent = "";
     human_answer.textContent = "";
-    factor = 2.5;
-    document.querySelector("input.factorChanger").setAttribute('value', '2.5');
-})
+});
 

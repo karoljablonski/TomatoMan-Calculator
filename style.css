@@ -11,7 +11,8 @@ zmienne: kolory
 }
 
 body {
-    background: var(--main_color);
+    /* background: var(--main_color); */
+    background: linear-gradient(180deg, rgba(255, 192, 203, 1) 0%, rgba(146, 182, 177, 1) 100%);
     height: 99vh;
     display: flex;
     flex-direction: row;
@@ -29,15 +30,17 @@ div.wrapper {
     align-items: center;
     justify-content: center;
     justify-items: center;
-    background-color: var(--second_color);
+    /* background-color: var(--second_color); */
+    /* background: linear-gradient(180deg, rgba(255, 192, 203, 1) 2%, rgba(146, 182, 177, 1) 100%); */
     border-radius: 15px;
 }
 
 
 h1 {
     flex-grow: 1;
+    text-align: center;
     color: var(--fifth_color);
-    background-color: pink;
+    /* background-color: pink; */
     margin: 0 auto;
     padding: auto;
 }
@@ -85,8 +88,6 @@ button {
 }
 
 button.button_reset {
-    /* border: none; */
-    background-color: transparent;
     letter-spacing: 2px;
     cursor: pointer;
 }
@@ -100,21 +101,23 @@ p {
     text-align: center;
     font-size: 20px;
     padding: 0;
-    transition: 300ms;
+    /* transition: 300ms; */
     color: transparent;
     /* margin: 6px; */
 }
 
 p>span {
-    transition: .3s;
+    /* transition: .3s; */
     color: transparent;
     text-decoration: underline;
 }
 
 .button_reset {
     flex-grow: 1;
+    background-color: var(--fifth_color);
 }
 
+/*
 .blurring {
     animation: blurring 1s;
 }
@@ -132,6 +135,7 @@ p>span {
         color: white;
     }
 }
+*/
 
 /* tutaj kod dla popup */
 
@@ -144,7 +148,8 @@ p>span {
     align-items: center;
     width: 280px;
     height: 200px;
-    background-color: rgb(155, 116, 123);
+    background-color: var(--fifth_color);
+
     border-radius: 15px;
 }
 
@@ -157,12 +162,21 @@ p>span {
     font-size: 20px;
 }
 
+p.factorChanger::after {
+    display: block;
+    content: "*Określa ile osób przypada na jednego pomidora";
+    font-size: 0.5em;
+    color: var(--main_color);
+}
+
 input.factorChanger {
-    background-color: black;
+    background-color: var(--fifth_color);
     width: 60px;
     text-align: center;
     border-radius: 15px;
-    color: rgb(89, 72, 72);
+    color: white;
+    border: 1px solid var(--third_color);
+    border-radius: 15px;
 }
 
 .quit {
@@ -173,5 +187,16 @@ input.factorChanger {
 }
 
 .quit:hover {
+    text-decoration: underline;
+}
+
+.factorReset {
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: none;
+}
+
+.factorReset:hover {
     text-decoration: underline;
 }
