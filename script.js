@@ -5,7 +5,9 @@
 //liczba ludzi - mam otrzymac ilosc pomidorow
 // glownie chodzi mi o to ze wpisuje liczbe pomidorow a wyskakuje liczba osob jo tam, w dwie strony
 
-//pomysl na dodanie przelicznika - a raczej dac mozliwosc uzytkownikowi ustawienia samemu factora, np po kliknieciu w okienko factora alert z info ze zmieniasz ustawienia programu czy co :D
+// 1.0.2 pomysl na dodanie przelicznika - a raczej dac mozliwosc uzytkownikowi ustawienia samemu factora, np po kliknieciu w okienko factora alert z info ze zmieniasz ustawienia programu czy co :D
+
+// 1.0.2fix zrobic, zeby wyswietlanie wyniku nie powodowalo przeskakiwania linijki.
 let factor = 2.5;
 
 const tomato = document.querySelector(".tomato");
@@ -13,16 +15,17 @@ const button_tomato = document.querySelector(".button_tomato")
 const tomato_p = document.querySelector("div.case>p.answer_in_tomato");
 const tomato_answer = document.querySelector("span.answer_potato");
 
-tomato_answer.textContent = Math.floor(tomato.value * factor);
-// const p_tomato = document.querySelector("p.answer_in_tomatoes");
 button_tomato.addEventListener("click", function(){
-    tomato_p.classList.remove("anti-blur");
-    tomato_p.classList.add("blurring");
+    // tomato_p.classList.remove("anti-blur");
+    // debugger;
+    if(tomato.value<=0){
+        tomato_answer.textContent = "0";
+    } else {
     tomato_answer.textContent = Math.floor(tomato.value * factor);
+    }
     tomato_answer.style.color = "white";
     tomato_p.style.color = "white";
     // tomato_p.classList.remove("blurring");
-
 });
 
 const human = document.querySelector(".human");
@@ -30,37 +33,81 @@ const button_human = document.querySelector(".button_human");
 const human_p = document.querySelector("div.case>p.answer_in_human");
 const human_answer = document.querySelector("span.answer_human");
 
-human_answer.textContent = Math.floor(human.value / factor);
-// const p_tomato = document.querySelector("p.answer_in_tomatoes");
 button_human.addEventListener("click", function(){
-    human_p.classList.remove("anti-blur");
-    human_p.classList.add("blurring");
-    human_answer.textContent = (human.value/factor).toFixed(2);
+    // human_p.classList.remove("anti-blur");
+    // human_p.classList.add("blurring");
+    if(human.value == 0){
+        human_answer.textContent = "0";
+
+    } else {
+    human_answer.textContent = Math.floor((human.value/factor).toFixed(2)) + 1;
+    };
     human_answer.style.color = "white";
     human_p.style.color = "white";
     // human_p.classList.remove("blurring");
 });
 
 
-{/* <div class="case">
 
-<label for="">
-    <input type="number" class="human" placeholder="Ile masz osób?!" value="1">
-    <button class="button_human">Oblicz!</button>
-</label>
+// button_human.addEventListener("click", calculate(human, human_answer, human_p));
+// button_tomato.addEventListener("click", calculate(tomato, tomato_answer, tomato_p));
 
-<p class="answer_in_human">Potrzebujesz <span> </span> pomidorów!</p> */}
+//sprobujmy zrobic jedna funkcje dla obu przyciskow, taki callback-kombajn:
+// function calculate(subject, spanAnswer, pAnswer){
+//     const zmienna = subject.toString();
+//         spanAnswer.textContent = (subject.value*factor);
+//         if(zmienna === "human"){
+//             spanAnswer.textContent = (subject.value/factor).toFixed(2);
+//         }
+//         spanAnswer.style.color = "white";
+//         pAnswer.style.color = "white";
+//     }; PROBA NIEUDANA :(
+
+// calculate(button_human, human, human_answer, human_p);
+
+
+
+//zmienne potrzebne do popup'a
+const div = document.querySelector("div.display_none");
+const factorChanger = document.querySelector("p.factorChanger");
+const quit = document.querySelector("p.quit");
+// factorChanger_span.textContent = `${factor}`;
+
+document.querySelector("button.button_settings").addEventListener("click", function(){
+
+    factorChanger.classList.remove("display_none");
+    quit.classList.remove("display_none");
+    div.classList.remove("display_none");
+    div.classList.add("popup");
+
+    document.querySelector("div.wrapper").style.filter = "blur(3px)";
+
+    //przycisk zapisujacy i wylaczajacy popup'a
+    document.querySelector("p.quit").addEventListener("click", function(){
+        document.querySelector("div.wrapper").style.filter = "blur(0)";
+        div.classList.remove("popup");
+        div.classList.add("display_none");
+        factorChanger.classList.add("display_none");
+        quit.classList.add("display_none");
+        const newFactor = document.querySelector("input.factorChanger").value;
+        factor = parseFloat(newFactor, 1);
+    });
+});
 
 
 
 
 //reset ustawien
-document.querySelector(".button_reset").addEventListener("click", ()=>{
-    tomato.value = "0";
-    human.value = "0";
-    tomato_p.classList.add("anti-blur");
-    human_p.classList.add("anti-blur");
+document.querySelector(".reset").addEventListener("click", ()=>{
+    tomato.value = "1";
+    human.value = "1";
+    // tomato_p.classList.add("anti-blur");
+    // human_p.classList.add("anti-blur");
+    tomato_p.style.color = "transparent";
+    human_p.style.color = "transparent";
     tomato_answer.textContent = "";
     human_answer.textContent = "";
+    factor = 2.5;
+    document.querySelector("input.factorChanger").setAttribute('value', '2.5');
 })
 
